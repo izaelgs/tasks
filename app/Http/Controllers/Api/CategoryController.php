@@ -30,7 +30,7 @@ class CategoryController extends Controller
         Category::create($data);
 
         return response()->json([
-            "message" => __('model.create_success', ['model' => 'Category', 'artigo_definido' => 'o']),
+            "message" => __('model.create_success', ['model' => 'Categoria', 'artigo_definido' => 'a']),
         ], 201);
 
         try {
