@@ -11,7 +11,7 @@ class Category extends Model
 
     protected $fillable = [
         'user_id',
-        'categoryid',
+        'category_id',
         'title',
         'description'
     ];
@@ -20,12 +20,12 @@ class Category extends Model
 
     public function categories()
     {
-        return $this->hasMany(Category::class, 'categoryid', 'id');
+        return $this->hasMany(Category::class, 'category_id', 'id');
     }
 
     public function category()
     {
-        return $this->belongsTo(Category::class, 'categoryid', 'id');
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
     public function targets()
@@ -40,13 +40,13 @@ class Category extends Model
 
     public function isFather()
     {
-        return is_null($this->attributes['categoryid']);
+        return is_null($this->attributes['category_id']);
     }
 
     protected $appends = ['is_father'];
     public function getIsFatherAttribute()
     {
-        return is_null($this->attributes['categoryid']);
+        return is_null($this->attributes['category_id']);
     }
 
 }

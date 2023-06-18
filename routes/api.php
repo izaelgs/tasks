@@ -22,6 +22,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::namespace('App\Http\Controllers\Api')->group(function() {
+    Route::middleware('auth:sanctum')->group( function() {
+        Route::resource('category', 'CategoryController');
+    });
+});
+
 Route::post('/tokens/create', function (Request $request) {
     $credentials = $request->only('email', 'password');
 
