@@ -100,11 +100,19 @@ class CategoryController extends Controller
 
             $category = Auth::user()->categories()->find($id);
 
+            if(!$category)
+                throw new NotFoundException();
+
             $category->update($data);
 
             return response()->json([
                 "message" => __('model.update_success', ['model' => 'Categoria', 'artigo_definido' => 'a']),
             ], 201);
+        } catch (NotFoundException $e) {
+            return response()->json([
+                "error" => "Not Found",
+                "message" => __('model.not_found', ['model' => 'Categoria', 'artigo_definido' => 'a'])
+            ], 404);
         } catch (\Throwable $th) {
             return response()->json([
                 "error" => __('model.update_error'),
@@ -118,6 +126,28 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+
+            $category = Auth::user()->categories()->find($id);
+
+            if(!$category)
+                throw new NotFoundException();
+
+            $category->delete();
+
+            return response()->json([
+                "message" => __('model.destroy_success', ['model' => 'Categoria', 'artigo_definido' => 'a']),
+            ], 201);
+        } catch (NotFoundException $e) {
+            return response()->json([
+                "error" => "Not Found",
+                "message" => __('model.not_found', ['model' => 'Categoria', 'artigo_definido' => 'a'])
+            ], 404);
+        } catch (\Throwable $th) {
+            return response()->json([
+                "error" => __('model.destroy_error'),
+                "message" => $th->getMessage(),
+            ], 400);
+        }
     }
 }
