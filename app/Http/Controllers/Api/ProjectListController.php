@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Exceptions\NotFoundException;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ProjectRequest;
-use App\Models\Project;
+use App\Models\ProjectList;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ProjectController extends Controller
+class ProjectListController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,23 +16,23 @@ class ProjectController extends Controller
     public function index()
     {
         try {
-            $projects = Auth::user()->projects()->get();
+            $lists = Auth::user()->lists()->get();
 
-            if(!count($projects))
+            if(!count($lists))
                 throw new NotFoundException();
 
             return response()->json([
-                "data" => $projects,
+                "data" => $lists,
             ], 200);
         } catch (NotFoundException $e) {
             return response()->json([
                 "error" => "Not Found",
-                "message" => __('model.not_found', ['model' => 'Projeto', 'artigo_definido' => 'o']),
+                "message" => __('model.not_found', ['model' => 'Lista', 'artigo_definido' => 'a']),
             ], 404);
         } catch (\Throwable $th) {
             return response()->json([
                 "error" => "Erro Inesperado",
-                "message" => __('model.index_error')
+                "message" => __('model.index_error', ['model' => 'Lista', 'artigo_definido' => 'a'])
             ], 400);
         }
     }
@@ -40,23 +40,22 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ProjectRequest $request)
+    public function store(Request $request)
     {
-
         try {
             $data = $request->all();
 
             $data['user_id'] = Auth::user()->id;
 
-            $project = Project::create($data);
+            $project = ProjectList::create($data);
 
             return response()->json([
-                "message"   => __('model.create_success', ['model' => 'Projeto', 'artigo_definido' => 'o']),
+                "message"   => __('model.create_success', ['model' => 'Lista', 'artigo_definido' => 'a']),
                 "data"      => $project
             ], 201);
         } catch (\Throwable $th) {
             return response()->json([
-                "error"     => __('model.create_error', ['model' => 'Projeto', 'artigo_definido' => 'o']),
+                "error"     => __('model.create_error', ['model' => 'Lista', 'artigo_definido' => 'a']),
                 "message" => $th->getMessage()
             ], 400);
         }
@@ -68,23 +67,23 @@ class ProjectController extends Controller
     public function show(string $id)
     {
         try {
-            $project = Project::find($id);
+            $list = ProjectList::find($id);
 
-            if(!$project)
+            if(!$list)
                 throw new NotFoundException();
 
             return response()->json([
-                "data" => $project,
+                "data" => $list,
             ], 200);
         } catch (NotFoundException $e) {
             return response()->json([
                 "error" => "Not Found",
-                "message" => __('model.not_found', ['model' => 'Projeto', 'artigo_definido' => 'o'])
+                "message" => __('model.not_found', ['model' => 'Lista', 'artigo_definido' => 'a'])
             ], 404);
         } catch (\Throwable $th) {
             return response()->json([
                 "error" => "Erro Inesperado",
-                "message" => __('model.index_error', ['model' => 'Projeto', 'artigo_definido' => 'o'])
+                "message" => __('model.index_error', ['model' => 'Lista', 'artigo_definido' => 'a'])
             ], 400);
         }
     }
@@ -92,12 +91,12 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ProjectRequest $request, string $id)
+    public function update(Request $request, string $id)
     {
         try {
             $data = $request->all();
 
-            $project = Project::find($id);
+            $project = ProjectList::find($id);
 
             if(!$project)
                 throw new NotFoundException();
@@ -105,12 +104,12 @@ class ProjectController extends Controller
             $project->update($data);
 
             return response()->json([
-                "message" => __('model.update_success', ['model' => 'Projeto', 'artigo_definido' => 'o']),
+                "message" => __('model.update_success', ['model' => 'Lista', 'artigo_definido' => 'a']),
             ], 201);
         } catch (NotFoundException $e) {
             return response()->json([
                 "error" => "Not Found",
-                "message" => __('model.not_found', ['model' => 'Projeto', 'artigo_definido' => 'o'])
+                "message" => __('model.not_found', ['model' => 'Lista', 'artigo_definido' => 'a'])
             ], 404);
         } catch (\Throwable $th) {
             return response()->json([
@@ -127,20 +126,20 @@ class ProjectController extends Controller
     {
         try {
 
-            $project = Project::find($id);
+            $list = ProjectList::find($id);
 
-            if(!$project)
+            if(!$list)
                 throw new NotFoundException();
 
-            $project->delete();
+            $list->delete();
 
             return response()->json([
-                "message" => __('model.destroy_success', ['model' => 'Projeto', 'artigo_definido' => 'o']),
+                "message" => __('model.destroy_success', ['model' => 'Lista', 'artigo_definido' => 'a']),
             ], 201);
         } catch (NotFoundException $e) {
             return response()->json([
                 "error" => "Not Found",
-                "message" => __('model.not_found', ['model' => 'Projeto', 'artigo_definido' => 'o'])
+                "message" => __('model.not_found', ['model' => 'Lista', 'artigo_definido' => 'a'])
             ], 404);
         } catch (\Throwable $th) {
             return response()->json([

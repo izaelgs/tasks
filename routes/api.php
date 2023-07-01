@@ -27,6 +27,8 @@ Route::namespace('App\Http\Controllers\Api')->group(function() {
         Route::resource('category', 'CategoryController');
 
         Route::resource('project', 'ProjectController');
+
+        Route::resource('list', 'ProjectListController');
     });
 });
 
