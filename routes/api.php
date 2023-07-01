@@ -25,6 +25,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::namespace('App\Http\Controllers\Api')->group(function() {
     Route::middleware('auth:sanctum')->group( function() {
         Route::resource('category', 'CategoryController');
+
+        Route::resource('project', 'ProjectController');
     });
 });
 

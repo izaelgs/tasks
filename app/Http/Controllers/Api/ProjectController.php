@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Exceptions\NotFoundException;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CategoryRequest;
-use App\Models\Category;
+use App\Http\Requests\ProjectRequest;
+use App\Models\Project;
 use Illuminate\Support\Facades\Auth;
 
-class CategoryController extends Controller
+class ProjectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,18 +16,18 @@ class CategoryController extends Controller
     public function index()
     {
         try {
-            $categories = Auth::user()->categories()->get();
+            $projects = Auth::user()->projects()->get();
 
-            if(!count($categories))
+            if(!count($projects))
                 throw new NotFoundException();
 
             return response()->json([
-                "data" => $categories,
+                "data" => $projects,
             ], 200);
         } catch (NotFoundException $e) {
             return response()->json([
                 "error" => "Not Found",
-                "message" => __('model.not_found', ['model' => 'Categoria', 'artigo_definido' => 'a']),
+                "message" => __('model.not_found', ['model' => 'Projeto', 'artigo_definido' => 'o']),
             ], 404);
         } catch (\Throwable $th) {
             return response()->json([
@@ -40,7 +40,7 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CategoryRequest $request)
+    public function store(ProjectRequest $request)
     {
 
         try {
@@ -48,11 +48,11 @@ class CategoryController extends Controller
 
             $data['user_id'] = Auth::user()->id;
 
-            $category = Category::create($data);
+            $project = Project::create($data);
 
             return response()->json([
-                "message"   => __('model.create_success', ['model' => 'Categoria', 'artigo_definido' => 'a']),
-                "data"      => $category
+                "message"   => __('model.create_success', ['model' => 'Projeto', 'artigo_definido' => 'o']),
+                "data"      => $project
             ], 201);
         } catch (\Throwable $th) {
             return response()->json([
@@ -68,23 +68,23 @@ class CategoryController extends Controller
     public function show(string $id)
     {
         try {
-            $category = Auth::user()->categories()->find($id);
+            $project = Auth::user()->projects()->find($id);
 
-            if(!$category)
+            if(!$project)
                 throw new NotFoundException();
 
             return response()->json([
-                "data" => $category,
+                "data" => $project,
             ], 200);
         } catch (NotFoundException $e) {
             return response()->json([
                 "error" => "Not Found",
-                "message" => __('model.not_found', ['model' => 'Categoria', 'artigo_definido' => 'a'])
+                "message" => __('model.not_found', ['model' => 'Projeto', 'artigo_definido' => 'o'])
             ], 404);
         } catch (\Throwable $th) {
             return response()->json([
                 "error" => "Erro Inesperado",
-                "message" => __('model.index_error', ['model' => 'Categoria', 'artigo_definido' => 'a'])
+                "message" => __('model.index_error', ['model' => 'Projeto', 'artigo_definido' => 'o'])
             ], 400);
         }
     }
@@ -92,25 +92,25 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(CategoryRequest $request, string $id)
+    public function update(ProjectRequest $request, string $id)
     {
         try {
             $data = $request->all();
 
-            $category = Auth::user()->categories()->find($id);
+            $project = Auth::user()->projects()->find($id);
 
-            if(!$category)
+            if(!$project)
                 throw new NotFoundException();
 
-            $category->update($data);
+            $project->update($data);
 
             return response()->json([
-                "message" => __('model.update_success', ['model' => 'Categoria', 'artigo_definido' => 'a']),
+                "message" => __('model.update_success', ['model' => 'Projeto', 'artigo_definido' => 'o']),
             ], 201);
         } catch (NotFoundException $e) {
             return response()->json([
                 "error" => "Not Found",
-                "message" => __('model.not_found', ['model' => 'Categoria', 'artigo_definido' => 'a'])
+                "message" => __('model.not_found', ['model' => 'Projeto', 'artigo_definido' => 'o'])
             ], 404);
         } catch (\Throwable $th) {
             return response()->json([
@@ -127,20 +127,20 @@ class CategoryController extends Controller
     {
         try {
 
-            $category = Auth::user()->categories()->find($id);
+            $project = Auth::user()->projects()->find($id);
 
-            if(!$category)
+            if(!$project)
                 throw new NotFoundException();
 
-            $category->delete();
+            $project->delete();
 
             return response()->json([
-                "message" => __('model.destroy_success', ['model' => 'Categoria', 'artigo_definido' => 'a']),
+                "message" => __('model.destroy_success', ['model' => 'Projeto', 'artigo_definido' => 'o']),
             ], 201);
         } catch (NotFoundException $e) {
             return response()->json([
                 "error" => "Not Found",
-                "message" => __('model.not_found', ['model' => 'Categoria', 'artigo_definido' => 'a'])
+                "message" => __('model.not_found', ['model' => 'Projeto', 'artigo_definido' => 'o'])
             ], 404);
         } catch (\Throwable $th) {
             return response()->json([
