@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('lists', function (Blueprint $table) {
+        Schema::create('project_lists', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')
                 ->constrained();
@@ -34,6 +34,6 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::dropIfExists('lists');
+        Schema::dropIfExists('project_lists');
     }
 };
