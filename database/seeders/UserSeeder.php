@@ -22,6 +22,9 @@ class UserSeeder extends Seeder
         ]);
 
         // Criação de mais usuários de exemplo
-        User::factory(10)->create();
+        User::factory()
+            ->count(10)
+            ->hasTeams(1)
+            ->create();
     }
 }
