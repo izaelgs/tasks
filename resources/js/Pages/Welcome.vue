@@ -17,19 +17,19 @@ defineProps({
             <Link
                 v-if="$page.props.auth.user"
                 :href="route('dashboard')"
-                class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
+                class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-violet-500"
             >Dashboard</Link>
 
             <template v-else>
                 <Link
                     :href="route('login')"
-                    class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
+                    class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-violet-500"
                 >Entrar</Link>
 
                 <Link
                     v-if="canRegister"
                     :href="route('register')"
-                    class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
+                    class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-violet-500"
                 >Cadastre-se</Link>
             </template>
         </div>
@@ -48,7 +48,7 @@ defineProps({
                 <div class="mx-auto text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left">
                     <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">Aumente sua produtividade.<br>Comece a usar nosso aplicativo hoje.</h2>
 
-                    <p class="mt-6 text-lg leading-8 text-gray-300">Desperte sua produtividade. Simplifique a gestão de projetos e potencialize sua organização pessoal!</p>
+                    <p class="mt-6 text-lg leading-8 text-gray-300">Desperte sua produtividade. Simplifique sua gestão de projetos e potencialize sua organização pessoal!</p>
 
                     <div class="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
                         <a
