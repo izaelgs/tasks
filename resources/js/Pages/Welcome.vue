@@ -10,7 +10,7 @@ defineProps({
 </script>
 
 <template>
-    <Head title="Welcome" />
+    <Head title="Entre ou Cadastre-se" />
 
     <div class="relative bg-gray-900 sm:flex sm:justify-center sm:items-center min-h-screen selection:bg-red-500 selection:text-white">
         <div v-if="canLogin" class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
