@@ -8,6 +8,8 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 
+import ApiService from '@/services/ApiService.js';
+
 defineProps({
     canResetPassword: Boolean,
     status: String,
@@ -20,6 +22,14 @@ const form = useForm({
 });
 
 const submit = () => {
+
+    let payload = {
+        email : form.email,
+        password : form.password,
+    }
+
+    ApiService.setToken(payload);
+
     form.transform(data => ({
         ...data,
         remember: form.remember ? 'on' : '',

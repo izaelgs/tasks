@@ -95,8 +95,37 @@
 </template>
 
 <script>
+import ApiService from '@/services/ApiService';
 
 export default {
+    methods: {
+        create() {
+
+            let payload = {
+                category_id :1,
+                team_id     :1,
+                title       :'Personal Project',
+                description :'Random and personal project',
+                priority    :1,
+                deadline    :'2023-06-23',
+            }
+
+            ApiService.post('project', payload);
+        },
+
+        async getCategories() {
+            let categories = await ApiService.get('user');
+
+            console.log('categories:', categories);
+        }
+    },
+
+    created: function () {
+        console.log('created');
+
+        this.getCategories();
+    }
+
 
 }
 
