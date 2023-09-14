@@ -41,7 +41,7 @@ export default {
     async post(endpoint, data) {
         try {
             const response = await apiClient.post(endpoint, data);
-            return response.data;
+            return response;
         } catch (error) {
             throw error;
         }

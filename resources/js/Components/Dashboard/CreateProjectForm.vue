@@ -139,7 +139,9 @@ export default {
                     deadline    : this.deadline,
                 };
 
-                await ApiService.post('project', payload);
+                let response = await ApiService.post('project', payload);
+
+                this.toasMessage = response;
 
                 this.reset();
 
@@ -172,7 +174,15 @@ export default {
             this.title       = '';
             this.description = '';
             this.priority    = 0;
-            this.deadline    = '';
+            this.deadline = this.getActualDate();
+        }
+    },
+
+    watch: {
+        toasMessage() {
+            setTimeout(() => {
+                this.toasMessage = null;
+            }, 5000);
         }
     },
 

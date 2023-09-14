@@ -58,6 +58,9 @@ export default {
                 case 200:
                     atual_status = 'success';
                     break;
+                case 201:
+                    atual_status = 'success';
+                    break;
                 case 400:
                     atual_status = 'error';
                     break;
