@@ -91,42 +91,49 @@
                 </div>
             </div>
         </div>
+
+        <ToastMessage v-if="toasMessage" :message="toasMessage"/>
     </div>
 </template>
 
 <script>
 import ApiService from '@/services/ApiService';
+import ToastMessage from '../ToastMessage.vue';
 
 export default {
+    data: () => {
+        return {
+            categories: [],
+            toasMessage: '',
+        };
+    },
     methods: {
         create() {
-
             let payload = {
-                category_id :1,
-                team_id     :1,
-                title       :'Personal Project',
-                description :'Random and personal project',
-                priority    :1,
-                deadline    :'2023-06-23',
-            }
-
+                category_id: 1,
+                team_id: 1,
+                title: 'Personal Project',
+                description: 'Random and personal project',
+                priority: 1,
+                deadline: '2023-06-23',
+            };
             ApiService.post('project', payload);
         },
-
         async getCategories() {
-            let categories = await ApiService.get('user');
-
-            console.log('categories:', categories);
+            try {
+                let categories = await ApiService.get('category');
+                this.categories = categories;
+                console.log('categories:', categories);
+            } catch (error) {
+                this.toasMessage = error.response;
+            }
         }
     },
-
     created: function () {
         console.log('created');
-
         this.getCategories();
-    }
-
-
+    },
+    components: { ToastMessage }
 }
 
 </script>

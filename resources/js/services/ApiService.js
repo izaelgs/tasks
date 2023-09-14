@@ -2,8 +2,6 @@
 import axios from 'axios';
 import { Cookies } from 'quasar';
 
-console.log('Cookies token', Cookies.get('token'))
-
 const apiClient = axios.create({
     baseURL: '/api/',
     headers: {
@@ -16,8 +14,6 @@ export default {
 
     async setToken (payload) {
         let response = await apiClient.post('/tokens/create', payload);
-
-        console.log('Token', apiClient, apiClient.defaults.headers);
 
         if(response.data && response.data.token) {
             let token = 'Bearer ' + response.data.token;
