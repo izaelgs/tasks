@@ -24,7 +24,6 @@ export default {
 
     // Exemplo de função para buscar dados
     async get(endpoint) {
-
         try {
             const response = await apiClient.get(endpoint);
             return response.data;

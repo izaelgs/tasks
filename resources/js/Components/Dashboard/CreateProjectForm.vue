@@ -4,7 +4,7 @@
     >
         <form
             class="border-b border-gray-900/10 pb-12"
-            @submit.stop="create"
+            @submit.stop.prevent="create"
         >
             <h2 class="text-base font-semibold leading-7 text-slate-200">Adicionar Projeto</h2>
             <p class="mt-1 text-sm leading-6 text-slate-300">Desbrave o mundo, crie idéias, pinte o quadro da vida com a sua cor.</p>
@@ -97,6 +97,11 @@
                         >
                     </div>
                 </div>
+
+                <!-- Adicionar -->
+                <div class="sm:col-span-1">
+                    <button class="bg-slate-500 mt-8 py-1.5 w-full rounded-md border-0 shadow-sm ring-inset">Adicionar</button>
+                </div>
             </div>
         </form>
 
@@ -123,16 +128,24 @@ export default {
     },
 
     methods: {
-        create() {
-            let payload = {
-                category_id : this.category_id,
-                team_id     : this.team_id,
-                title       : this.title,
-                description : this.description,
-                priority    : this.priority,
-                deadline    : this.deadline,
-            };
-            ApiService.post('project', payload);
+        async create() {
+            try {
+                let payload = {
+                    category_id : this.category_id ? this.category_id : null,
+                    team_id     : this.team_id,
+                    title       : this.title,
+                    description : this.description ? this.description : '...',
+                    priority    : this.priority,
+                    deadline    : this.deadline,
+                };
+
+                await ApiService.post('project', payload);
+
+                this.reset();
+
+            } catch (error) {
+                this.toasMessage = error.response;
+            }
         },
 
         async getCategories() {
@@ -152,6 +165,14 @@ export default {
 
             let dataAtual = `${ano}-${mes}-${dia}`;
             return dataAtual;
+        },
+
+        reset() {
+            this.category_id = 0;
+            this.title       = '';
+            this.description = '';
+            this.priority    = 0;
+            this.deadline    = '';
         }
     },
 

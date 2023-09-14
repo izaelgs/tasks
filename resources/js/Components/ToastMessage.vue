@@ -7,7 +7,7 @@
             <span class="sr-only">Check icon</span>
         </div>
 
-        <div class="ml-3 text-sm font-normal">{{ message.data.message }}.</div>
+        <div class="ml-3 text-sm font-normal">{{ message.data.message }}</div>
 
         <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-success" aria-label="Close">
             <span class="sr-only">Close</span>
@@ -27,8 +27,6 @@ export default {
         return {
             icon: 'ic:baseline-check-circle',
 
-            atual_status : 'error',
-
             status: {
                 success: {
                     icon: 'ic:baseline-check-circle',
@@ -41,14 +39,20 @@ export default {
                 not_found: {
                     icon: 'mdi:file-search-outline',
                     color_class: 'text-red-500 bg-red-100 dark:bg-red-800 dark:text-red-200'
+                },
+                invalid_date: {
+                    icon: 'ic:baseline-warning',
+                    color_class: 'text-amber-500 bg-amber-100 dark:bg-amber-800 dark:text-amber-200'
                 }
             }
         }
     },
 
     computed: {
-        status_code() {
+        atual_status() {
             let atual_status = 'error';
+
+            console.log(this.message)
 
             switch (this.message.status) {
                 case 200:
@@ -59,6 +63,9 @@ export default {
                     break;
                 case 404:
                     atual_status = 'not_found';
+                    break;
+                case 422:
+                    atual_status = 'invalid_date';
                     break;
 
                 default:
