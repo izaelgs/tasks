@@ -46,12 +46,11 @@ export default {
         }
     },
 
-    methods: {
-        getStatusByCode(status_code) {
-
+    computed: {
+        status_code() {
             let atual_status = 'error';
 
-            switch (status_code) {
+            switch (this.message.status) {
                 case 200:
                     atual_status = 'success';
                     break;
@@ -71,16 +70,6 @@ export default {
     },
 
     props: ['message'],
-
-    created() {
-        this.atual_status = this.getStatusByCode(this.message.status);
-    },
-
-    watch: {
-        message(newValue, oldValue) {
-            console.log('watch message', newValue);
-        }
-    },
 
     components: { Icon }
 }

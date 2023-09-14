@@ -2,6 +2,7 @@
 
 namespace App\Actions\Fortify;
 
+use App\Models\Category;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -35,6 +36,7 @@ class CreateNewUser implements CreatesNewUsers
                 'password' => Hash::make($input['password']),
             ]), function (User $user) {
                 $this->createTeam($user);
+                $this->createCategory($user);
             });
         });
     }
@@ -48,6 +50,17 @@ class CreateNewUser implements CreatesNewUsers
             'user_id' => $user->id,
             'name' => explode(' ', $user->name, 2)[0]."'s Team",
             'personal_team' => true,
+        ]));
+    }
+
+    /**
+     * Create a personal team for the user.
+     */
+    protected function createCategory(User $user): void
+    {
+        $user->categories()->save(new Category([
+            'title'         => "Personal Projects",
+            'description'   => "Here you can create personal projects",
         ]));
     }
 }

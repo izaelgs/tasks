@@ -7,6 +7,7 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import ApiService from '@/services/ApiService';
 
 const form = useForm({
     name: '',
@@ -18,7 +19,15 @@ const form = useForm({
 
 const submit = () => {
     form.post(route('register'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
+        onFinish: () => {
+            let payload = {
+                email       : form.email,
+                password    : form.password,
+            }
+
+            ApiService.setToken(payload);
+            form.reset('password', 'password_confirmation')
+        },
     });
 };
 </script>

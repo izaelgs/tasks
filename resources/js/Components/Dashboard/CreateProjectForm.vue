@@ -2,7 +2,10 @@
     <div
         class="col-span-2 text-white p-4 bg-gradient-to-r from-violet-500 to-blue-500 overflow-hidden shadow-sm sm:rounded-lg"
     >
-        <div class="border-b border-gray-900/10 pb-12">
+        <form
+            class="border-b border-gray-900/10 pb-12"
+            @submit.stop="create"
+        >
             <h2 class="text-base font-semibold leading-7 text-slate-200">Adicionar Projeto</h2>
             <p class="mt-1 text-sm leading-6 text-slate-300">Desbrave o mundo, crie idéias, pinte o quadro da vida com a sua cor.</p>
 
@@ -17,6 +20,7 @@
                             name="title"
                             id="title"
                             autocomplete="title"
+                            v-model="title"
                             class="block w-full rounded-md border-0 py-1.5 text-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         >
                     </div>
@@ -27,16 +31,16 @@
                     <div class="relative">
                         <textarea
                             type="text"
-                            name="title"
-                            id="title"
-                            autocomplete="title"
+                            name="description"
+                            id="description"
                             rows="4"
                             class="peer block w-full rounded-md border-0 pt-4 py-1.5 text-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             placeholder=" "
+                            v-model="description"
                         ></textarea>
-                        <!-- <input class="block px-2.5 pb-2.5  w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " /> -->
+
                         <label
-                            for="title"
+                            for="description"
                             class="absolute text-sm font-medium text-slate-200 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-2"
                         >Descrição</label>
                     </div>
@@ -44,53 +48,57 @@
 
                 <!-- Categoria -->
                 <div class="sm:col-span-2">
-                    <label for="country" class="block text-sm font-medium leading-6 text-slate-200">Categoria</label>
+                    <label for="category_id" class="block text-sm font-medium leading-6 text-slate-200">Categoria</label>
 
                     <div class="mt-2">
                         <select
-                            id="country"
-                            name="country"
-                            autocomplete="country-name"
+                            id="category_id"
+                            v-model="category_id"
                             class="block w-full rounded-md border-0 py-1.5 text-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                            required
                         >
-                            <option>United States</option>
-                            <option>Canada</option>
-                            <option>Mexico</option>
+                            <option value="0" hidden>Selecione uma categoria</option>
+                            <option
+                                v-for="category in categories"
+                                :value="category.id"
+                            >{{ category.title }}</option>
                         </select>
                     </div>
                 </div>
 
                 <!-- Prioridade -->
                 <div class="sm:col-span-1">
-                    <label for="first-name" class="block text-sm font-medium leading-6 text-slate-200">Prioridade</label>
+                    <label for="priority" class="block text-sm font-medium leading-6 text-slate-200">Prioridade</label>
 
                     <div class="mt-2">
                         <input
                             type="text"
-                            name="first-name"
-                            id="first-name"
-                            autocomplete="given-name"
+                            name="priority"
+                            id="priority"
+                            v-model="priority"
+                            max="10"
+                            min="0"
                             class="block w-full rounded-md border-0 py-1.5 text-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         >
                     </div>
                 </div>
 
                 <!-- Prazo -->
-                <div class="sm:col-span-1">
-                    <label for="city" class="block text-sm font-medium leading-6 text-slate-200">Prazo</label>
+                <div class="sm:col-span-2">
+                    <label for="deadline" class="block text-sm font-medium leading-6 text-slate-200">Prazo</label>
 
                     <div class="mt-2">
                         <input
-                            type="text"
-                            name="city"
-                            id="city"
-                            autocomplete="address-level2"
+                            type="date"
+                            name="deadline"
+                            id="deadline"
+                            v-model="deadline"
                             class="block w-full rounded-md border-0 py-1.5 text-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         >
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
 
         <ToastMessage v-if="toasMessage" :message="toasMessage"/>
     </div>
@@ -105,34 +113,53 @@ export default {
         return {
             categories: [],
             toasMessage: '',
+
+            category_id : 0,
+            title       : '',
+            description : '',
+            priority    : 0,
+            deadline    : '',
         };
     },
+
     methods: {
         create() {
             let payload = {
-                category_id: 1,
-                team_id: 1,
-                title: 'Personal Project',
-                description: 'Random and personal project',
-                priority: 1,
-                deadline: '2023-06-23',
+                category_id : this.category_id,
+                team_id     : this.team_id,
+                title       : this.title,
+                description : this.description,
+                priority    : this.priority,
+                deadline    : this.deadline,
             };
             ApiService.post('project', payload);
         },
+
         async getCategories() {
             try {
                 let categories = await ApiService.get('category');
-                this.categories = categories;
-                console.log('categories:', categories);
+                this.categories = categories.data;
             } catch (error) {
                 this.toasMessage = error.response;
             }
+        },
+
+        getActualDate() {
+            let hoje = new Date();
+            let ano = hoje.getFullYear();
+            let mes = String(hoje.getMonth() + 1).padStart(2, '0');
+            let dia = String(hoje.getDate()).padStart(2, '0');
+
+            let dataAtual = `${ano}-${mes}-${dia}`;
+            return dataAtual;
         }
     },
+
     created: function () {
-        console.log('created');
         this.getCategories();
+        this.deadline = this.getActualDate();
     },
+
     components: { ToastMessage }
 }
 
