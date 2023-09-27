@@ -3,18 +3,18 @@
         class="col-span-2 text-white p-4 bg-gradient-to-r from-violet-500 to-blue-500 overflow-hidden shadow-sm sm:rounded-lg"
     >
         <form
-            class="border-b border-gray-900/10 pb-12"
+            class="border-b border-gray-900/10 pb-2"
             @submit.stop.prevent="create"
         >
             <h2 class="text-base font-semibold leading-7 text-slate-200">Adicionar Projeto</h2>
             <p class="mt-1 text-sm leading-6 text-slate-300">Desbrave o mundo, crie idéias, pinte o quadro da vida com a sua cor.</p>
 
-            <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div class="mt-5 grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-6">
                 <!-- Título -->
                 <div class="col-span-full">
                     <label for="title" class="block text-sm font-medium leading-6 text-slate-200">Título</label>
 
-                    <div class="mt-2">
+                    <div class="mt-1">
                         <input
                             type="text"
                             name="title"
@@ -50,7 +50,7 @@
                 <div class="sm:col-span-2">
                     <label for="category_id" class="block text-sm font-medium leading-6 text-slate-200">Categoria</label>
 
-                    <div class="mt-2">
+                    <div class="mt-1">
                         <select
                             id="category_id"
                             v-model="category_id"
@@ -70,9 +70,9 @@
                 <div class="sm:col-span-1">
                     <label for="priority" class="block text-sm font-medium leading-6 text-slate-200">Prioridade</label>
 
-                    <div class="mt-2">
+                    <div class="mt-1">
                         <input
-                            type="text"
+                            type="number"
                             name="priority"
                             id="priority"
                             v-model="priority"
@@ -87,7 +87,7 @@
                 <div class="sm:col-span-2">
                     <label for="deadline" class="block text-sm font-medium leading-6 text-slate-200">Prazo</label>
 
-                    <div class="mt-2">
+                    <div class="mt-1">
                         <input
                             type="date"
                             name="deadline"

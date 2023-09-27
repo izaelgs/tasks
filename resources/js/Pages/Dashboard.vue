@@ -2,6 +2,7 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 
 import CreateProjectForm from '@/Components/Dashboard/CreateProjectForm.vue';
+import RecentProjects from '@/Components/Dashboard/RecentProjects.vue';
 </script>
 
 <template>
@@ -19,9 +20,9 @@ import CreateProjectForm from '@/Components/Dashboard/CreateProjectForm.vue';
                 <div class="p-4 bg-gradient-to-r from-slate-300 to-slate-200 overflow-hidden shadow-sm sm:rounded-lg">
                     Appointments
                 </div>
-                <div class="col-span-3 p-4 bg-gradient-to-r from-slate-300 to-slate-200 overflow-hidden shadow-sm sm:rounded-lg">
-                    Most Recent Project Details
-                </div>
+
+                <RecentProjects />
+
                 <div class="col-span-3 p-4 bg-gradient-to-r from-slate-300 to-slate-200 overflow-hidden shadow-sm sm:rounded-lg">
                     Categorie
                 </div>
