@@ -3,9 +3,10 @@
         <h2 class="text-base font-semibold leading-7">Projetos Recentes</h2>
 
         <template v-if="projects.length">
-            <div
+            <Link
                 v-for="project in projects"
-                class="col-span-3 p-4 overflow-hidden shadow-sm hover:shadow sm:rounded-lg relative"
+                :href="route('project', 1)"
+                class="block p-4 overflow-hidden shadow-sm hover:shadow sm:rounded-lg relative"
             >
                 <h5 class="text-base font-semibold text-gray-900">
                     {{ project.title }}
@@ -19,10 +20,10 @@
                     {{ (new Date(project.created_at)).toLocaleDateString() }}
                 </small>
 
-                <small class="text-xs font-normal text-gray-500 absolute right-2 bottom-1">
+                <small class="text-xs font-normal text-gray-500 absolute right-0 bottom-1">
                     {{ isoToLocaleString(project.deadline) }}
                 </small>
-            </div>
+            </Link>
         </template>
         <template v-else>
             <div class="flex h-5/6 flex-col justify-center items-center">
@@ -43,6 +44,7 @@
 <script>
 import ApiService from '@/services/ApiService';
 import ToastMessage from '../ToastMessage.vue';
+import { Link } from '@inertiajs/vue3';
 
 export default {
     data: () => {
@@ -82,7 +84,7 @@ export default {
         this.getProjects();
     },
 
-    components: { ToastMessage }
+    components: { ToastMessage, Link }
 }
 
 </script>
