@@ -1,6 +1,6 @@
 <template>
     <div
-        class="col-span-2 text-white p-4 bg-gradient-to-r from-violet-500 to-blue-500 overflow-hidden shadow-sm sm:rounded-lg"
+        class="col-span-2 text-white p-4 bg-gradient-to-r from-violet-500 to-blue-400 overflow-hidden shadow-sm sm:rounded-lg"
     >
         <form
             class="border-b border-gray-900/10 pb-2"
@@ -100,7 +100,7 @@
 
                 <!-- Adicionar -->
                 <div class="sm:col-span-1">
-                    <button class="bg-slate-500 mt-8 py-1.5 w-full rounded-md border-0 shadow-sm ring-inset">Adicionar</button>
+                    <button class="bg-violet-600 mt-8 py-1.5 w-full rounded-md border-0 shadow-sm ring-inset">Adicionar</button>
                 </div>
             </div>
         </form>

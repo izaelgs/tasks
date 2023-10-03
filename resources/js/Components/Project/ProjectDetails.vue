@@ -25,7 +25,7 @@
         <small v-if="project.updated_at" class="text-xs font-normal text-gray-500"> e Atualizado em {{ (new Date(project.updated_at)).toLocaleDateString() }}</small>
     </div>
 
-    <ToastMessage v-if="toastMessage" :message="toasMessage"/>
+    <ToastMessage v-if="toastMessage" :message="toastMessage"/>
 </template>
 
 <script>
@@ -34,15 +34,26 @@ import ApiService from '@/services/ApiService';
 
 export default {
     async setup() {
-        const request_project = await ApiService.get('project/1');
-        const project = request_project.data;
 
+        try {
         const toastMessage = '';
 
-        return {
-            project,
-            toastMessage
-        };
+            const request_project   = await ApiService.get('project/1');
+            const project           = request_project.data;
+
+            return {
+                project,
+                toastMessage
+            };
+        } catch (error) {
+            const toastMessage  = error.response;
+            const project       = {};
+
+            return {
+                project,
+                toastMessage
+            };
+        }
     },
 
     methods: {
@@ -54,9 +65,9 @@ export default {
     },
 
     watch: {
-        toasMessage() {
+        toastMessage() {
             setTimeout(() => {
-                this.toasMessage = null;
+                this.toastMessage = null;
             }, 5000);
         }
     },
