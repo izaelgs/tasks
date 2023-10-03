@@ -1,0 +1,67 @@
+<template>
+    <div class="col-span-3 p-4 bg-gradient-to-r from-slate-200 to-slate-300 overflow-hidden shadow-sm sm:rounded-lg">
+        <h3 class="text-lg font-semibold text-gray-900">{{ project.title }}</h3>
+        <p class="text-sm font-normal text-gray-500">{{ project.description }}</p>
+
+        <div>
+            <span
+                class="bg-slate-100 text-slate-100 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-violet-600"
+            >Prazo: {{ isoToLocaleString(project.deadline) }}</span>
+
+            <span
+                class="bg-slate-100 text-slate-100 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-violet-600"
+            >Prioridade: {{ project.priority }}</span>
+
+            <span
+                class="bg-slate-100 text-slate-100 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-violet-600"
+            >Time: {{ project.team ? project.team : 'nenhum' }}</span>
+
+            <span
+                class="bg-slate-100 text-slate-100 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-violet-600"
+            >Status: {{ project.status ? 'Ativo' : 'Inativo' }}</span>
+        </div>
+
+        <small class="text-xs font-normal text-gray-500">Criado em {{ (new Date(project.created_at)).toLocaleDateString() }}</small>
+        <small v-if="project.updated_at" class="text-xs font-normal text-gray-500"> e Atualizado em {{ (new Date(project.updated_at)).toLocaleDateString() }}</small>
+    </div>
+
+    <ToastMessage v-if="toastMessage" :message="toasMessage"/>
+</template>
+
+<script>
+import ToastMessage from '@/Components/ToastMessage.vue';
+import ApiService from '@/services/ApiService';
+
+export default {
+    async setup() {
+        const request_project = await ApiService.get('project/1');
+        const project = request_project.data;
+
+        const toastMessage = '';
+
+        return {
+            project,
+            toastMessage
+        };
+    },
+
+    methods: {
+        isoToLocaleString(date) {
+            date = new Date(date + ' 00:00:00');
+
+            return date.toLocaleDateString();
+        }
+    },
+
+    watch: {
+        toasMessage() {
+            setTimeout(() => {
+                this.toasMessage = null;
+            }, 5000);
+        }
+    },
+
+    components: { ToastMessage },
+}
+
+</script>

@@ -28,7 +28,7 @@ import RecentProjects from '@/Components/Dashboard/RecentProjects.vue';
 
                     <template #fallback>
                         <div
-                            class="col-span-3 p-4 bg-gradient-to-r from-slate-200 to-slate-300 overflow-hidden shadow-sm sm:rounded-lg animate-pulse"
+                            class="col-span-3 p-4 bg-gradient-to-r from-slate-300 to-slate-200 overflow-hidden shadow-sm sm:rounded-lg animate-pulse"
                         >
                         </div>
                     </template>
