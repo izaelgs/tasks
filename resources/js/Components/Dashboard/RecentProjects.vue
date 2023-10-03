@@ -9,7 +9,7 @@
                 class="block p-4 overflow-hidden shadow-sm hover:shadow sm:rounded-lg relative"
             >
                 <h5 class="text-base font-semibold text-gray-900">
-                    {{ project.title }}
+                    {{ project.title}}
                 </h5>
 
                 <p class="text-sm font-normal text-gray-500">
@@ -37,7 +37,7 @@
             </div>
         </template>
 
-        <ToastMessage v-if="toasMessage" :message="toasMessage"/>
+        <ToastMessage v-if="toastMessage" :message="toastMessage"/>
     </div>
 </template>
 
@@ -47,24 +47,18 @@ import ToastMessage from '../ToastMessage.vue';
 import { Link } from '@inertiajs/vue3';
 
 export default {
-    data: () => {
-        return {
-            projects: [],
+    async setup() {
+        let request_projects = await ApiService.get('project');
+        const projects = request_projects.data;
+        const toastMessage = '';
 
-            toasMessage: ''
+        return {
+            projects,
+            toastMessage
         };
     },
 
     methods: {
-        async getProjects() {
-            try {
-                let projects = await ApiService.get('project');
-                this.projects = projects.data;
-            } catch (error) {
-                // this.toasMessage = error.response;
-            }
-        },
-
         isoToLocaleString(date) {
             date = new Date(date + ' 00:00:00');
 
@@ -73,15 +67,11 @@ export default {
     },
 
     watch: {
-        toasMessage() {
+        toastMessage() {
             setTimeout(() => {
-                this.toasMessage = null;
+                this.toastMessage = null;
             }, 5000);
-        }
-    },
-
-    created: function () {
-        this.getProjects();
+        },
     },
 
     components: { ToastMessage, Link }

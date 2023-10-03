@@ -27,8 +27,24 @@
 <script>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import ToastMessage from '@/Components/ToastMessage.vue';
+import ApiService from '@/services/ApiService';
 
 export default {
+    async setup() {
+        const project = await ApiService.get('project');
+        const toastMessage = '';
+
+        const loading = await  new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve('teste');
+            }, 100000);
+        });
+
+        return {
+            projects,
+            toastMessage
+        };
+    },
     data: () => {
         return {
             project: null,
@@ -40,9 +56,11 @@ export default {
     methods: {
         async getProject() {
             try {
-                let project = await ApiService.get('project/1');
-                this.project = project.data;
+                let response = await ApiService.get('project/1');
+
+                this.project = response.data;
             } catch (error) {
+                console.log('error', error);
                 this.toasMessage = error.response;
             }
         },
