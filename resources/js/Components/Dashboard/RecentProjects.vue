@@ -20,7 +20,7 @@
                     {{ (new Date(project.created_at)).toLocaleDateString() }}
                 </small>
 
-                <small class="text-xs font-normal text-gray-500 absolute right-0 bottom-1">
+                <small class="text-xs font-normal text-gray-500 absolute right-2 bottom-1">
                     {{ isoToLocaleString(project.deadline) }}
                 </small>
             </Link>

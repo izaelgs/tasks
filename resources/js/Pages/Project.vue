@@ -1,7 +1,3 @@
-<script setup>
-import AppLayout from '@/Layouts/AppLayout.vue';
-</script>
-
 <template>
     <AppLayout title="Project">
         <template #header>
@@ -23,5 +19,54 @@ import AppLayout from '@/Layouts/AppLayout.vue';
                 </div>
             </div>
         </div>
+
+        <ToastMessage v-if="toasMessage" :message="toasMessage"/>
     </AppLayout>
 </template>
+
+<script>
+import AppLayout from '@/Layouts/AppLayout.vue';
+import ToastMessage from '@/Components/ToastMessage.vue';
+
+export default {
+    data: () => {
+        return {
+            project: null,
+
+            toasMessage: ''
+        };
+    },
+
+    methods: {
+        async getProject() {
+            try {
+                let project = await ApiService.get('project/1');
+                this.project = project.data;
+            } catch (error) {
+                this.toasMessage = error.response;
+            }
+        },
+
+        isoToLocaleString(date) {
+            date = new Date(date + ' 00:00:00');
+
+            return date.toLocaleDateString();
+        }
+    },
+
+    watch: {
+        toasMessage() {
+            setTimeout(() => {
+                this.toasMessage = null;
+            }, 5000);
+        }
+    },
+
+    created: function () {
+        this.getProject();
+    },
+
+    components: { AppLayout, ToastMessage },
+}
+
+</script>
