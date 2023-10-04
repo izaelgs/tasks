@@ -16,7 +16,7 @@ jobs:
             php-version: 8.1
         - name: Copy .env file
           run: |
-            cp .env.ci .env
+            cp .env.example .env
 
         - name: Run composer
           run: composer install --no-interaction
