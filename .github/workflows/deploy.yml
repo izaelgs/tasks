@@ -10,7 +10,7 @@ jobs:
     steps:
     - name: Checkout the files
       uses: actions/checkout@v3
-      run: |
+      - run: |
           npm run build
 
     - name: Copy files with SSH
