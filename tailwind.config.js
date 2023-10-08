@@ -19,6 +19,15 @@ export default {
             },
             transitionProperty: {
                 'height': 'height',
+            },
+            animation: {
+                'time-progress': 'widthAnimation 5s linear infinite',
+            },
+            keyframes: {
+                widthAnimation: {
+                    '0%': { width: '100%' },
+                    '100%': { width: '0%' },
+                }
             }
         },
     },

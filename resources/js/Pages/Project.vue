@@ -37,6 +37,8 @@
                 </div>
             </div>
         </div>
+
+        <ToastMessage />
     </AppLayout>
 </template>
 
@@ -45,6 +47,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 
 import ProjectDetails from '@/Components/Project/ProjectDetails.vue';
 import ProjectLists from '@/Components/Project/ProjectLists.vue';
+import ToastMessage from '@/Components/ToastMessage.vue';
 
 export default {
     data: () => {
@@ -57,7 +60,7 @@ export default {
         this.project_id = parseInt(this.route().params.id);
     },
 
-    components: { AppLayout, ProjectDetails, ProjectLists },
+    components: { AppLayout, ProjectDetails, ProjectLists, ToastMessage },
 }
 
 </script>

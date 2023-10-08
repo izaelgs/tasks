@@ -104,20 +104,16 @@
                 </div>
             </div>
         </form>
-
-        <ToastMessage v-if="toasMessage" :message="toasMessage"/>
     </div>
 </template>
 
 <script>
 import ApiService from '@/services/ApiService';
-import ToastMessage from '../ToastMessage.vue';
 
 export default {
     data: () => {
         return {
             categories: [],
-            toasMessage: '',
 
             category_id : 0,
             title       : '',
@@ -141,12 +137,12 @@ export default {
 
                 let response = await ApiService.post('project', payload);
 
-                this.toasMessage = response;
+                this.$store.commit('addMessage', response);
 
                 this.reset();
 
             } catch (error) {
-                this.toasMessage = error.response;
+                this.$store.commit('addMessage', error.response);
             }
         },
 
@@ -155,7 +151,7 @@ export default {
                 let categories = await ApiService.get('category');
                 this.categories = categories.data;
             } catch (error) {
-                this.toasMessage = error.response;
+                this.$store.commit('addMessage', error.response);
             }
         },
 
@@ -178,20 +174,10 @@ export default {
         }
     },
 
-    watch: {
-        toasMessage() {
-            setTimeout(() => {
-                this.toasMessage = null;
-            }, 5000);
-        }
-    },
-
     created: function () {
         this.getCategories();
         this.deadline = this.getActualDate();
     },
-
-    components: { ToastMessage }
 }
 
 </script>

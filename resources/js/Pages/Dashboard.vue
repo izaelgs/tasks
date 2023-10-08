@@ -3,6 +3,8 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 
 import CreateProjectForm from '@/Components/Dashboard/CreateProjectForm.vue';
 import RecentProjects from '@/Components/Dashboard/RecentProjects.vue';
+
+import ToastMessage from '@/Components/ToastMessage.vue';
 </script>
 
 <template>
@@ -45,5 +47,7 @@ import RecentProjects from '@/Components/Dashboard/RecentProjects.vue';
                 </div>
             </div>
         </div>
+
+        <ToastMessage />
     </AppLayout>
 </template>

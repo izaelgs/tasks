@@ -72,6 +72,7 @@
                             sm:leading-6"
                     >
                         <Icon
+                            v-if="icon"
                             class="absolute start-0 bottom-0 pb-2 ps-2"
                             :icon="icon"
                             style="font-size: 2rem;"
@@ -159,8 +160,6 @@
                 </template>
             </div>
         </div>
-
-        <ToastMessage v-if="toasMessage" :message="toasMessage"/>
     </form>
 </template>
 
@@ -169,7 +168,6 @@
 import { Icon } from '@iconify/vue';
 
 import ApiService from '@/services/ApiService';
-import ToastMessage from '../ToastMessage.vue';
 
 export default {
     props: {
@@ -231,7 +229,6 @@ export default {
             ],
 
             categories  : [],
-            toasMessage : '',
 
             emojiHidden : true,
             colorHidden : true,
@@ -257,15 +254,13 @@ export default {
                     color_hex   : this.color_hex,
                 };
 
-                let response = await ApiService.post('list', payload);
+                let message = await ApiService.post('list', payload);
 
-                this.toasMessage = response;
+                this.$store.commit('addMessage', message);
 
                 this.reset();
-
             } catch (error) {
-                throw error;
-                this.toasMessage = error.response;
+                this.$store.commit('addMessage', error.response);
             }
         },
 
@@ -274,7 +269,7 @@ export default {
                 let categories = await ApiService.get('category');
                 this.categories = categories.data;
             } catch (error) {
-                this.toasMessage = error.response;
+                this.$store.state.messages.push(error.response);
             }
         },
 
@@ -317,20 +312,15 @@ export default {
         }
     },
 
-    watch: {
-        toasMessage() {
-            setTimeout(() => {
-                this.toasMessage = null;
-            }, 5000);
-        }
-    },
-
     created: function () {
+
+        console.log('store', );
+
         this.getCategories();
         this.deadline = this.getActualDate();
     },
 
-    components: { ToastMessage, Icon }
+    components: { Icon }
 }
 
 </script>
