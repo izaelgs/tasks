@@ -23,7 +23,7 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 grid gap-4 md:grid-cols-3 grid-rows-3">
                 <Suspense>
                     <template #default>
-                        <ProjectLists />
+                        <ProjectLists v-if="project_id" :project_id="project_id" />
                     </template>
                     <template #fallback>
                         <div

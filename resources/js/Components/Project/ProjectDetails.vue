@@ -35,9 +35,8 @@ import ToastMessage from '@/Components/ToastMessage.vue';
 import ApiService from '@/services/ApiService';
 
 export default {
-    props: {
-        project_id : Number
-    },
+    props:["project_id"],
+
     async setup(props) {
         try {
             const toastMessage = '';

@@ -1,6 +1,6 @@
 <template>
     <div class="col-span-2 text-white overflow-hidden shadow-sm sm:rounded-lg">
-        <CreateListForm />
+        <CreateListForm v-if="project_id" :project_id="project_id" />
     </div>
 
     <ToastMessage v-if="toastMessage" :message="toastMessage"/>
@@ -13,6 +13,9 @@ import ApiService from '@/services/ApiService';
 import CreateListForm from '@/Components/Project/CreateListForm.vue';
 
 export default {
+    props: {
+        project_id : Number
+    },
     async setup() {
         try {
             const request_lists = await ApiService.get('list');

@@ -1,5 +1,4 @@
 <template>
-
     <form
         class="text-white p-4 bg-gradient-to-r from-violet-500 to-blue-400 overflow-hidden shadow-sm sm:rounded-lg"
         @submit.stop.prevent="create"
@@ -173,6 +172,9 @@ import ApiService from '@/services/ApiService';
 import ToastMessage from '../ToastMessage.vue';
 
 export default {
+    props: {
+        project_id : Number
+    },
     data: () => {
         return {
             icones : [
@@ -234,7 +236,6 @@ export default {
             emojiHidden : true,
             colorHidden : true,
 
-            project_id  : '1',
             title       : '',
             description : '',
             icon        : 'twemoji:1st-place-medal',
@@ -245,22 +246,25 @@ export default {
     methods: {
         async create() {
             try {
+
+                console.log(this.project_id)
+
                 let payload = {
-                    category_id : this.category_id ? this.category_id : null,
-                    team_id     : this.team_id,
+                    project_id  : this.project_id ? this.project_id : null,
                     title       : this.title,
                     description : this.description ? this.description : '...',
-                    priority    : this.priority,
-                    deadline    : this.deadline,
+                    icon        : this.icon,
+                    color_hex   : this.color_hex,
                 };
 
-                let response = await ApiService.post('project', payload);
+                let response = await ApiService.post('list', payload);
 
                 this.toasMessage = response;
 
                 this.reset();
 
             } catch (error) {
+                throw error;
                 this.toasMessage = error.response;
             }
         },
