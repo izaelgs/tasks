@@ -45,23 +45,21 @@
             </div>
 
             <!-- Icone -->
-            <div class="sm:col-span-1 relative">
+            <div class="sm:col-span-1">
                 <label for="icon" class="block text-sm font-medium leading-6 text-slate-200">Icone</label>
 
                 <div class="mt-1">
-                    <Icon
-                        class="text-slate-100 absolute top-0 end-0 pb-2"
-                        :icon="icon"
-                        style="font-size: 2rem;"
-                    />
-
-                    <input
-                        type="text"
-                        name="icon"
-                        id="icon"
-                        v-model="icon"
-                        class="block w-full rounded-md border-0 h-10 text-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    <button
+                        @click="toggleEmojiArea()"
+                        type="button"
+                        class="relative w-10 rounded-md border-0 h-10 text-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     >
+                        <Icon
+                            class="text-slate-100 absolute start-0 bottom-0 pb-2 ps-2"
+                            :icon="icon"
+                            style="font-size: 2rem;"
+                        />
+                    </button>
                 </div>
             </div>
 
@@ -84,6 +82,13 @@
             <div class="sm:col-span-1 absolute bottom-0 right-0">
                 <button class="bg-violet-600 h-10 w-auto px-4 w-full rounded-md border-0 shadow-sm ring-inset">Adicionar</button>
             </div>
+
+            <div
+                class="col-span-full transition-all"
+                :class="{ hidden: emojiHidden }"
+            >
+                escolha
+            </div>
         </div>
 
         <ToastMessage v-if="toasMessage" :message="toasMessage"/>
@@ -102,6 +107,8 @@ export default {
         return {
             categories  : [],
             toasMessage : '',
+
+            emojiHidden : true,
 
             project_id  : '1',
             title       : '',
@@ -159,6 +166,10 @@ export default {
             this.description = '';
             this.priority    = 0;
             this.deadline = this.getActualDate();
+        },
+
+        toggleEmojiArea() {
+            this.emojiHidden = !this.emojiHidden;
         }
     },
 
