@@ -7,21 +7,23 @@
         </template>
 
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 grid gap-4 grid-cols-3 grid-rows-3">
-                <Suspense>
-                    <template #default>
-                        <ProjectDetails />
-                    </template>
-                    <template #fallback>
+            <Suspense>
+                <template #default>
+                    <ProjectDetails v-if="project_id" :project_id="project_id" />
+                </template>
+                <template #fallback>
+                    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 grid mb-4">
                         <div
                             class="col-span-3 p-4 bg-gradient-to-r from-slate-300 to-slate-200 overflow-hidden shadow-sm sm:rounded-lg animate-pulse"
                         ></div>
-                    </template>
-                </Suspense>
+                    </div>
+                </template>
+            </Suspense>
 
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 grid gap-4 md:grid-cols-3 grid-rows-3">
                 <Suspense>
                     <template #default>
-                        <ProjectLists />
+                        <ProjectLists v-if="project_id" :project_id="project_id" />
                     </template>
                     <template #fallback>
                         <div
@@ -29,11 +31,14 @@
                         ></div>
                     </template>
                 </Suspense>
-                <div class="p-4 bg-gradient-to-r from-slate-300 to-slate-200 overflow-hidden shadow-sm sm:rounded-lg">
+
+                <div class="sm:col-span-2 md:col-span-1 p-4 bg-gradient-to-r from-slate-300 to-slate-200 overflow-hidden shadow-sm sm:rounded-lg">
                     Appointments
                 </div>
             </div>
         </div>
+
+        <ToastMessage />
     </AppLayout>
 </template>
 
@@ -42,17 +47,20 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 
 import ProjectDetails from '@/Components/Project/ProjectDetails.vue';
 import ProjectLists from '@/Components/Project/ProjectLists.vue';
+import ToastMessage from '@/Components/ToastMessage.vue';
 
 export default {
-    watch: {
-        toasMessage() {
-            setTimeout(() => {
-                this.toasMessage = null;
-            }, 5000);
-        }
+    data: () => {
+        return {
+            project_id  : 0,
+        };
     },
 
-    components: { AppLayout, ProjectDetails, ProjectLists },
+    created() {
+        this.project_id = parseInt(this.route().params.id);
+    },
+
+    components: { AppLayout, ProjectDetails, ProjectLists, ToastMessage },
 }
 
 </script>
