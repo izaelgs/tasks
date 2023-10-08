@@ -44,11 +44,11 @@
                 </div>
             </div>
 
-            <!-- Icone -->
-            <div class="sm:col-span-1">
-                <label for="icon" class="block text-sm font-medium leading-6 text-slate-200">Icone</label>
+            <div class="col-span-full flex">
+                <!-- Icone -->
+                <div class="me-4">
+                    <label for="icon" class="block text-sm font-medium leading-6 text-slate-200">Icone</label>
 
-                <div class="mt-1">
                     <button
                         @click="toggleEmojiArea()"
                         type="button"
@@ -79,22 +79,43 @@
                         />
                     </button>
                 </div>
-            </div>
 
-            <!-- Cor -->
-            <div class="sm:col-span-1">
-                <label for="color_hex" class="block text-sm font-medium leading-6 text-slate-200">Cor</label>
+                <!-- Cor -->
+                <div class="me-2">
+                    <label for="color_hex" class="block text-sm font-medium leading-6 text-slate-200">Cor</label>
 
-                <div class="mt-1">
-                    <input
-                        type="color"
-                        name="color_hex"
-                        id="color_hex"
-                        v-model="color_hex"
-                        class="block w-full rounded-md border-0 h-10 text-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    >
+                    <button
+                            @click="toggleColorArea()"
+                            type="button"
+                            class="
+                                relative
+                                w-10
+                                h-10
+                                p-1
+                                rounded-md
+                                border-0
+                                text-gray-800
+                                shadow-sm
+                                ring-1
+                                ring-inset
+                                ring-gray-300
+                                text-slate-100
+                                placeholder:text-gray-400
+                                active:ring-inset
+                                active:ring-blue-400
+                                active:bg-violet-600
+                                active:text-blue-400
+                                sm:text-sm
+                                sm:leading-6"
+                        >
+                            <div
+                                class="py-4 cursor-pointer m-0"
+                                :style="`background-color: ${color_hex}`"
+                            ></div>
+                        </button>
                 </div>
             </div>
+
 
             <!-- Adicionar -->
             <div class="sm:col-span-1 absolute bottom-0 right-0">
@@ -116,6 +137,25 @@
                             style="font-size: 2.2rem;"
                             @click="chooseIcon(icone)"
                         />
+                    </div>
+                </template>
+            </div>
+
+            <!-- Cores -->
+            <div
+                class="transition-opacity duration-500 transition-[height] ease-out flex flex-wrap h-100"
+                :class="colorHidden ? 'h-0 opacity-0 overflow-hidden easy-in-out' : 'col-span-full h-auto opacity-100 mt-2 mb-12'"
+            >
+                <template v-if="colors">
+                    <div
+                        v-for="color in colors"
+                        class="m-0"
+                    >
+                        <div
+                            class="p-5 cursor-pointer m-0"
+                            :style="`background-color: ${color}`"
+                            @click="chooseColor(color)"
+                        ></div>
                     </div>
                 </template>
             </div>
@@ -163,16 +203,42 @@ export default {
                 'twemoji:closed-mailbox-with-lowered-flag'
             ],
 
+            colors: [
+                '#64748b',
+                '#6b7280',
+                '#71717a',
+                '#737373',
+                '#78716c',
+                '#ef4444',
+                '#f97316',
+                '#f59e0b',
+                '#eab308',
+                '#84cc16',
+                '#22c55e',
+                '#10b981',
+                '#14b8a6',
+                '#06b6d4',
+                '#0ea5e9',
+                '#3b82f6',
+                '#6366f1',
+                '#8b5cf6',
+                '#a855f7',
+                '#d946ef',
+                '#ec4899',
+                '#f43f5e'
+            ],
+
             categories  : [],
             toasMessage : '',
 
-            emojiHidden : false,
+            emojiHidden : true,
+            colorHidden : true,
 
             project_id  : '1',
             title       : '',
             description : '',
-            icon        : '',
-            color_hex   : '#C246F2',
+            icon        : 'twemoji:1st-place-medal',
+            color_hex   : '#8b5cf6',
         };
     },
 
@@ -231,8 +297,19 @@ export default {
             this.emojiHidden = true;
         },
 
+        chooseColor(color_hex) {
+            this.color_hex = color_hex;
+            this.colorHidden = true;
+        },
+
         toggleEmojiArea() {
             this.emojiHidden = !this.emojiHidden;
+            this.colorHidden = true;
+        },
+
+        toggleColorArea() {
+            this.colorHidden = !this.colorHidden;
+            this.emojiHidden = true;
         }
     },
 
