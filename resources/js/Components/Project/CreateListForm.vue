@@ -103,8 +103,8 @@
 
             <!-- Icones -->
             <div
-                class="col-span-full transition-all flex flex-wrap mt-2 mb-12"
-                :class="{ hidden: emojiHidden }"
+                class="transition-opacity duration-500 transition-[height] ease-out flex flex-wrap h-100"
+                :class="emojiHidden ? 'h-0 opacity-0 overflow-hidden easy-in-out' : 'col-span-full h-full opacity-100 mt-2 mb-12'"
             >
                 <template v-if="icones">
                     <div
