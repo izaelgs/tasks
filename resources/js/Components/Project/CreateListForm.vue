@@ -52,10 +52,28 @@
                     <button
                         @click="toggleEmojiArea()"
                         type="button"
-                        class="relative w-10 rounded-md border-0 h-10 text-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        class="
+                            relative
+                            w-10
+                            rounded-md
+                            border-0
+                            h-10
+                            text-gray-800
+                            shadow-sm
+                            ring-1
+                            ring-inset
+                            ring-gray-300
+                            text-slate-100
+                            placeholder:text-gray-400
+                            active:ring-inset
+                            active:ring-blue-400
+                            active:bg-violet-600
+                            active:text-blue-400
+                            sm:text-sm
+                            sm:leading-6"
                     >
                         <Icon
-                            class="text-slate-100 absolute start-0 bottom-0 pb-2 ps-2"
+                            class="absolute start-0 bottom-0 pb-2 ps-2"
                             :icon="icon"
                             style="font-size: 2rem;"
                         />
@@ -83,11 +101,23 @@
                 <button class="bg-violet-600 h-10 w-auto px-4 w-full rounded-md border-0 shadow-sm ring-inset">Adicionar</button>
             </div>
 
+            <!-- Icones -->
             <div
-                class="col-span-full transition-all"
+                class="col-span-full transition-all flex flex-wrap mt-2 mb-12"
                 :class="{ hidden: emojiHidden }"
             >
-                escolha
+                <template v-if="icones">
+                    <div
+                        v-for="icone in icones"
+                    >
+                        <Icon
+                            class="p-2 cursor-pointer"
+                            :icon="icone"
+                            style="font-size: 2.2rem;"
+                            @click="chooseIcon(icone)"
+                        />
+                    </div>
+                </template>
             </div>
         </div>
 
@@ -105,15 +135,43 @@ import ToastMessage from '../ToastMessage.vue';
 export default {
     data: () => {
         return {
+            icones : [
+                'twemoji:1st-place-medal','twemoji:2nd-place-medal','twemoji:3rd-place-medal','twemoji:abacus','twemoji:accordion',
+                'twemoji:adhesive-bandage','twemoji:aerial-tramway','twemoji:airplane','twemoji:airplane-arrival','twemoji:airplane-departure',
+                'twemoji:alarm-clock','twemoji:alembic','twemoji:alien','twemoji:alien-monster','twemoji:ambulance','twemoji:american-football',
+                'twemoji:amphora','twemoji:anatomical-heart','twemoji:anchor','twemoji:anger-symbol','twemoji:ant','twemoji:articulated-lorry',
+                'twemoji:artist-palette','twemoji:atom-symbol','twemoji:auto-rickshaw','twemoji:automobile','twemoji:avocado','twemoji:axe',
+                'twemoji:baby-bottle','twemoji:backpack','twemoji:bacon','twemoji:badminton','twemoji:bagel','twemoji:baguette-bread',
+                'twemoji:balance-scale','twemoji:ballet-shoes','twemoji:balloon','twemoji:ballot-box-with-ballot','twemoji:banana','twemoji:banjo',
+                'twemoji:bank','twemoji:bar-chart','twemoji:barber-pole','twemoji:baseball','twemoji:basket','twemoji:basketball',
+                'twemoji:bat','twemoji:bathtub','twemoji:battery','twemoji:beach-with-umbrella','twemoji:beating-heart','twemoji:bed',
+                'twemoji:beer-mug','twemoji:beetle','twemoji:bell','twemoji:bellhop-bell','twemoji:bento-box','twemoji:beverage-box',
+                'twemoji:bicycle','twemoji:bikini','twemoji:billed-cap','twemoji:biohazard','twemoji:birthday-cake','twemoji:biting-lip',
+                'twemoji:black-flag','twemoji:black-nib','twemoji:blossom','twemoji:blowfish','twemoji:blue-book','twemoji:blueberries',
+                'twemoji:bomb','twemoji:bone','twemoji:bookmark','twemoji:bookmark-tabs','twemoji:books','twemoji:boomerang',
+                'twemoji:bottle-with-popping-cork','twemoji:bouquet','twemoji:bow-and-arrow','twemoji:bowl-with-spoon','twemoji:bowling','twemoji:boxing-glove',
+                'twemoji:brain','twemoji:bread','twemoji:brick','twemoji:bridge-at-night','twemoji:briefcase','twemoji:briefs',
+                'twemoji:bright-button','twemoji:broom','twemoji:bubble-tea','twemoji:bubbles','twemoji:bucket','twemoji:building-construction',
+                'twemoji:bullet-train','twemoji:bullseye','twemoji:burrito','twemoji:bus','twemoji:bus-stop','twemoji:butter',
+                'twemoji:butterfly','twemoji:cactus','twemoji:calendar','twemoji:camel','twemoji:camera','twemoji:camping',
+                'twemoji:candle','twemoji:candy','twemoji:canned-food','twemoji:canoe','twemoji:card-file-box','twemoji:card-index',
+                'twemoji:card-index-dividers','twemoji:carousel-horse','twemoji:carp-streamer','twemoji:carpentry-saw','twemoji:carrot','twemoji:castle',
+                'twemoji:chains','twemoji:chair','twemoji:chart-decreasing','twemoji:chart-increasing','twemoji:chart-increasing-with-yen','twemoji:cheese-wedge',
+                'twemoji:chequered-flag','twemoji:cherries','twemoji:cherry-blossom','twemoji:chess-pawn','twemoji:chestnut','twemoji:chicken',
+                'twemoji:children-crossing','twemoji:chocolate-bar','twemoji:chopsticks','twemoji:christmas-tree','twemoji:church','twemoji:cigarette',
+                'twemoji:circus-tent','twemoji:cityscape','twemoji:cityscape-at-dusk','twemoji:clamp','twemoji:clapper-board','twemoji:clapping-hands',
+                'twemoji:closed-mailbox-with-lowered-flag'
+            ],
+
             categories  : [],
             toasMessage : '',
 
-            emojiHidden : true,
+            emojiHidden : false,
 
             project_id  : '1',
             title       : '',
             description : '',
-            icon        : 'material-symbols:sentiment-very-satisfied-outline',
+            icon        : '',
             color_hex   : '#C246F2',
         };
     },
@@ -166,6 +224,11 @@ export default {
             this.description = '';
             this.priority    = 0;
             this.deadline = this.getActualDate();
+        },
+
+        chooseIcon(icon) {
+            this.icon = icon;
+            this.emojiHidden = true;
         },
 
         toggleEmojiArea() {
