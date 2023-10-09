@@ -1,6 +1,6 @@
 <template>
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 grid mb-4">
-        <div class="col-span-3 p-4 bg-gradient-to-r from-slate-200 to-slate-300 overflow-hidden shadow-sm sm:rounded-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid mb-4">
+        <div class="col-span-3 p-4 bg-gradient-to-r from-slate-200 to-slate-300 overflow-hidden shadow-sm rounded-lg">
             <h3 class="text-lg font-semibold text-gray-900">{{ project.title }}</h3>
             <p class="text-sm font-normal text-gray-500">{{ project.description }}</p>
 

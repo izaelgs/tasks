@@ -16,10 +16,10 @@ import ToastMessage from '@/Components/ToastMessage.vue';
         </template>
 
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 grid gap-4 md:grid-cols-3 md:grid-rows-3">
+            <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 grid gap-4 md:grid-cols-3 md:grid-rows-3">
                 <CreateProjectForm />
 
-                <div class="md:col-span-1 sm:col-span-3 p-4 bg-gradient-to-r from-slate-300 to-slate-200 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="md:col-span-1 col-span-3 p-4 bg-gradient-to-r from-slate-300 to-slate-200 overflow-hidden shadow-sm rounded-lg">
                     Appointments
                 </div>
 
@@ -30,19 +30,19 @@ import ToastMessage from '@/Components/ToastMessage.vue';
 
                     <template #fallback>
                         <div
-                            class="md:col-span-3 sm:col-span-3 p-4 bg-gradient-to-r from-slate-300 to-slate-200 overflow-hidden shadow-sm sm:rounded-lg animate-pulse"
+                            class="md:col-span-3 col-span-3 p-4 bg-gradient-to-r from-slate-300 to-slate-200 overflow-hidden shadow-sm rounded-lg animate-pulse"
                         >
                         </div>
                     </template>
                 </Suspense>
 
-                <div class="md:col-span-3 sm:col-span-3 p-4 bg-gradient-to-r from-slate-300 to-slate-200 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="md:col-span-3 col-span-3 p-4 bg-gradient-to-r from-slate-300 to-slate-200 overflow-hidden shadow-sm rounded-lg">
                     Categorie
                 </div>
-                <div class="md:col-span-2 sm:col-span-3 text-white p-4 bg-gradient-to-r from-violet-500 to-blue-500 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="md:col-span-2 col-span-3 text-white p-4 bg-gradient-to-r from-violet-500 to-blue-500 overflow-hidden shadow-sm rounded-lg">
                     Recent Projects
                 </div>
-                <div class="md:col-span-1 sm:col-span-3 p-4 bg-gradient-to-r from-slate-300 to-slate-200 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="md:col-span-1 col-span-3 p-4 bg-gradient-to-r from-slate-300 to-slate-200 overflow-hidden shadow-sm rounded-lg">
                     Teams
                 </div>
             </div>
