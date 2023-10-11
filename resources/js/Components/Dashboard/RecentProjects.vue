@@ -36,25 +36,20 @@
                 </p>
             </div>
         </template>
-
-        <ToastMessage v-if="toastMessage" :message="toastMessage"/>
     </div>
 </template>
 
 <script>
 import ApiService from '@/services/ApiService';
-import ToastMessage from '../ToastMessage.vue';
 import { Link } from '@inertiajs/vue3';
 
 export default {
     async setup() {
         let request_projects = await ApiService.get('project');
         const projects = request_projects.data;
-        const toastMessage = '';
 
         return {
             projects,
-            toastMessage
         };
     },
 
@@ -66,15 +61,7 @@ export default {
         }
     },
 
-    watch: {
-        toastMessage() {
-            setTimeout(() => {
-                this.toastMessage = null;
-            }, 5000);
-        },
-    },
-
-    components: { ToastMessage, Link }
+    components: { Link }
 }
 
 </script>

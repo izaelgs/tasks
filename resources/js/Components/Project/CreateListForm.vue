@@ -245,9 +245,6 @@ export default {
     methods: {
         async create() {
             try {
-
-                console.log(this.project_id)
-
                 let payload = {
                     project_id  : this.project_id ? this.project_id : null,
                     title       : this.title,
@@ -315,9 +312,6 @@ export default {
     },
 
     created: function () {
-
-        console.log('store', );
-
         this.getCategories();
         this.deadline = this.getActualDate();
     },

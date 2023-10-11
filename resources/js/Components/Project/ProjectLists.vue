@@ -33,9 +33,18 @@
                 <!-- Items -->
                 <div
                     class="transition-all duration-500 transition-[height] ease-out flex flex-wrap h-100"
-                    :class="list.show ? 'col-span-full h-auto opacity-100 mt-2 mb-12' : 'h-0 opacity-0 overflow-hidden easy-in-out'"
+                    :class="list.show ? 'col-span-full h-auto opacity-100 my-2' : 'h-0 opacity-0 overflow-hidden easy-in-out'"
                 >
-                    items
+                    <template v-if="list.items.length"></template>
+                    <template v-else>
+                        <div class="w-full text-center">
+                            Nenhum item cadastrado
+                        </div>
+                    </template>
+
+                    <CreateListItemForm
+                        :project_list_id="list.id"
+                    />
                 </div>
             </div>
         </template>
@@ -48,6 +57,7 @@ import ApiService from '@/services/ApiService';
 import CreateListForm from '@/Components/Project/CreateListForm.vue';
 import { Icon } from '@iconify/vue';
 import { ref } from 'vue';
+import CreateListItemForm from './CreateListItemForm.vue';
 
 export default {
     props: {
@@ -92,7 +102,7 @@ export default {
         }
     },
 
-    components: { CreateListForm, Icon },
+    components: { CreateListForm, Icon, CreateListItemForm },
 }
 
 </script>
