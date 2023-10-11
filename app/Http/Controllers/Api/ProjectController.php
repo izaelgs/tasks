@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Exceptions\NotFoundException;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProjectListRequest;
 use App\Http\Requests\ProjectRequest;
+use App\Http\Resources\ProjectListCollection;
+use App\Http\Resources\ProjectListResource;
 use App\Models\Project;
 use Illuminate\Support\Facades\Auth;
 
@@ -85,6 +88,36 @@ class ProjectController extends Controller
             return response()->json([
                 "error" => "Erro Inesperado",
                 "message" => __('model.index_error', ['model' => 'Projeto', 'artigo_definido' => 'o'])
+            ], 400);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function lists(string $id)
+    {
+        try {
+            $project = Project::find($id);
+
+            if(!$project)
+                throw new NotFoundException();
+
+            $lists = ProjectListResource::collection($project->lists);
+
+            return response()->json([
+                "data" => $lists,
+            ], 200);
+        } catch (NotFoundException $e) {
+            return response()->json([
+                "error" => "Not Found",
+                "message" => __('model.not_found', ['model' => 'Projeto', 'artigo_definido' => 'o'])
+            ], 404);
+        } catch (\Throwable $th) {
+            return response()->json([
+                "error" => "Erro Inesperado",
+                "message" => __('model.index_error', ['model' => 'Projeto', 'artigo_definido' => 'o']),
+                "details" => $th->getMessage()
             ], 400);
         }
     }

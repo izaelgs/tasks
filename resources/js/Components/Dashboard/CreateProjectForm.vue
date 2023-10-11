@@ -1,6 +1,6 @@
 <template>
     <div
-        class="md:col-span-2 sm:col-span-3 text-white p-4 bg-gradient-to-r from-violet-500 to-blue-400 overflow-hidden shadow-sm sm:rounded-lg"
+        class="md:col-span-2 col-span-3 text-white p-4 bg-gradient-to-r from-violet-500 to-blue-400 overflow-hidden shadow-sm rounded-lg"
     >
         <form
             class="border-b border-gray-900/10 pb-2"

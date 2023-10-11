@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ProjectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -27,8 +28,10 @@ Route::namespace('App\Http\Controllers\Api')->group(function() {
         Route::resource('category', 'CategoryController');
 
         Route::resource('project', 'ProjectController');
+        Route::get('project/{id}/lists', [ProjectController::class, 'lists'])->name('list.lists');
 
         Route::resource('list', 'ProjectListController');
+
 
         Route::resource('item', 'ItemController');
     });
