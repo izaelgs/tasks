@@ -34,4 +34,9 @@ class Project extends Model
     {
         return $this->belongsTo(Team::class);
     }
+
+    public function lists()
+    {
+        return $this->hasMany(ProjectList::class);
+    }
 }
