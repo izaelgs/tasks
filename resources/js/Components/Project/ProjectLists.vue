@@ -35,7 +35,28 @@
                     class="transition-all duration-500 transition-[height] ease-out flex flex-wrap h-100"
                     :class="list.show ? 'col-span-full h-auto opacity-100 my-2' : 'h-0 opacity-0 overflow-hidden easy-in-out'"
                 >
-                    <template v-if="list.items.length"></template>
+                    <template v-if="list.items.length">
+                        <div
+                            v-for="item in list.items"
+                            class="block w-full my-2 p-4 overflow-hidden shadow-sm hover:shadow sm:rounded-lg relative"
+                        >
+                            <h5 class="text-base font-semibold text-slate-50">
+                                {{ item.title}}
+                            </h5>
+
+                            <p class="text-sm font-normal text-slate-250">
+                                {{ item.description }}
+                            </p>
+
+                            <small class="text-xs font-normal text-slate-300 absolute left-4 bottom-1">
+                                {{ (new Date(item.created_at)).toLocaleDateString() }}
+                            </small>
+
+                            <small class="text-xs font-normal text-slate-300 absolute right-2 bottom-1">
+                                {{ isoToLocaleString(item.deadline) }}
+                            </small>
+                        </div>
+                    </template>
                     <template v-else>
                         <div class="w-full text-center">
                             Nenhum item cadastrado
