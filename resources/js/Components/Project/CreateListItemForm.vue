@@ -73,7 +73,7 @@
                 </div>
 
                 <!-- Descrição -->
-                <div class="col-span-4">
+                <div class="col-span-6">
                     <div class="relative">
                         <textarea
                             type="text"

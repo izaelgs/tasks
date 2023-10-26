@@ -32,7 +32,7 @@
 
                 <!-- Items -->
                 <div
-                    class="transition-all duration-500 transition-[height] ease-out flex flex-wrap h-100"
+                    class="transition-all duration-50 transition-[height] ease-out flex flex-wrap h-100"
                     :class="list.show ? 'col-span-full h-auto opacity-100 my-2' : 'h-0 opacity-0 overflow-hidden easy-in-out'"
                 >
                     <template v-if="list.items.length">
