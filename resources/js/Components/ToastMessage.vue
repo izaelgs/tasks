@@ -97,12 +97,6 @@ export default {
         }
     },
 
-    watch: {
-        messages() {
-            console.log('atualizando');
-        }
-    },
-
     props: ['message'],
 
     components: { Icon }

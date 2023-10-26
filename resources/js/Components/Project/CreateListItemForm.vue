@@ -133,9 +133,11 @@ export default {
                     value           : this.value,
                 };
 
-                let message = await ApiService.post('item', payload);
+                let response = await ApiService.post('item', payload);
 
-                this.$store.commit('addMessage', message);
+                this.$store.commit('addMessage', response);
+
+                this.$emit('add_item', response.data.data);
 
                 this.reset();
             } catch (error) {

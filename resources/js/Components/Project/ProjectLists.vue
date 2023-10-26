@@ -65,6 +65,7 @@
 
                     <CreateListItemForm
                         :project_list_id="list.id"
+                        @add_item="addItem"
                     />
                 </div>
             </div>
@@ -120,6 +121,13 @@ export default {
             date = new Date(date + ' 00:00:00');
 
             return date.toLocaleDateString();
+        },
+
+        addItem(item) {
+            let list = this.lists.find(list => list.id == item.project_list_id);
+            let index = this.lists.indexOf(list);
+
+            this.lists[index].items.push(item);
         }
     },
 
