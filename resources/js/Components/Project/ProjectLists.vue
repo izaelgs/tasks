@@ -41,7 +41,7 @@
                             class="block w-full my-2 p-4 overflow-hidden shadow-sm hover:shadow sm:rounded-lg relative"
                         >
                             <h5 class="text-base font-semibold text-slate-50">
-                                {{ item.title}}
+                                {{ item.title}} <small class="text-xs font-light text-slate-50">R$ {{ item.value}}</small>
                             </h5>
 
                             <p class="text-sm font-normal text-slate-250">
