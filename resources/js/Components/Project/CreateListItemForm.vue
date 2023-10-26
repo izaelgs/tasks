@@ -6,7 +6,7 @@
         >
             <div class="mt-5 grid grid-flow-row-dense grid-cols-4 gap-x-4 gap-y-4 md:grid-cols-6 relative">
                 <!-- Título -->
-                <div class="col-span-4">
+                <div class="col-span-6">
                     <label for="title" class="block text-sm font-medium leading-6 text-slate-200">Título</label>
 
                     <div class="mt-1">
@@ -22,7 +22,7 @@
                 </div>
 
                 <!-- Prazo -->
-                <div class="col-span-4">
+                <div class="col-span-6 md:col-span-2">
                     <label for="deadline" class="block text-sm font-medium leading-6 text-slate-200">Prazo</label>
 
                     <div class="mt-1">
@@ -38,8 +38,8 @@
                 </div>
 
                 <!-- Valor -->
-                <div class="col-span-2">
-                    <label for="value" class="block text-sm font-medium leading-6 text-slate-200">Valor</label>
+                <div class="col-span-2 md:col-span-2">
+                    <label for="value" class="block text-sm font-medium leading-6 text-slate-200">Valor (R$ / ?)</label>
 
                     <div class="mt-1">
                         <input
@@ -55,7 +55,7 @@
                 </div>
 
                 <!-- Prioridade -->
-                <div class="col-span-2">
+                <div class="col-span-4 md:col-span-2">
                     <label for="priority" class="block text-sm font-medium leading-6 text-slate-200">Prioridade</label>
 
                     <div class="mt-1">
