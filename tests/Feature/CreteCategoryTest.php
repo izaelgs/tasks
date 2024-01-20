@@ -97,4 +97,23 @@ class CreteCategoryTest extends TestCase
 
     $this->assertDatabaseHas('categories', array_merge(['id' => $category->id], $updatedData));
   }
+
+  /*
+    * Testa se é possivel deletar uma categoria.
+    */
+  public function test_it_deletes_a_category()
+  {
+    $this->actingAs($user = User::factory()->withPersonalTeam()->create());
+
+    $category = Category::factory()->create(['user_id' => $user->id]);
+
+    $response = $this->deleteJson(route('category.destroy', ['category' => $category->id]));
+
+    $response->assertStatus(Response::HTTP_CREATED)
+      ->assertJson([
+        'message' => __('model.destroy_success', ['model' => 'Categoria', 'artigo_definido' => 'a']),
+      ]);
+
+    $this->assertDatabaseMissing('categories', ['id' => $category->id]);
+  }
 }
