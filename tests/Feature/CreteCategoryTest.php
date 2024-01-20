@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -53,6 +54,26 @@ class CreteCategoryTest extends TestCase
             'title',
             'description',
           ]
+        ]
+      ]);
+  }
+
+  /**
+   * Testa se é possivel atualizar uma categoria.
+   */
+  public function test_it_shows_a_category()
+  {
+    $this->actingAs($user = User::factory()->withPersonalTeam()->create());
+
+    $category = Category::factory()->create(['user_id' => $user->id]);
+
+    $response = $this->getJson(route('category.show', ['category' => $category->id]));
+
+    $response->assertStatus(Response::HTTP_OK)
+      ->assertJson([
+        'data' => [
+          'id' => $category->id,
+          'title' => $category->title,
         ]
       ]);
   }
