@@ -77,4 +77,24 @@ class CreteCategoryTest extends TestCase
         ]
       ]);
   }
+
+  /*
+    * Testa se é possivel atualizar uma categoria.
+    */
+  public function test_it_updates_a_category()
+  {
+    $this->actingAs($user = User::factory()->withPersonalTeam()->create());
+
+    $category = Category::factory()->create(['user_id' => $user->id]);
+    $updatedData = ['title' => 'Updated Category'];
+
+    $response = $this->putJson(route('category.update', ['category' => $category->id]), $updatedData);
+
+    $response->assertStatus(Response::HTTP_CREATED)
+      ->assertJson([
+        'message' => __('model.update_success', ['model' => 'Categoria', 'artigo_definido' => 'a']),
+      ]);
+
+    $this->assertDatabaseHas('categories', array_merge(['id' => $category->id], $updatedData));
+  }
 }
