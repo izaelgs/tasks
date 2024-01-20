@@ -28,7 +28,7 @@ Route::namespace('App\Http\Controllers\Api')->group(function() {
         Route::resource('category', 'CategoryController');
 
         Route::resource('project', 'ProjectController');
-        Route::get('project/{id}/lists', [ProjectController::class, 'lists'])->name('list.lists');
+        Route::get('project/{id}/lists', [ProjectController::class, 'lists'])->name('project.lists');
 
         Route::resource('list', 'ProjectListController');
 
